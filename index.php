@@ -1,16 +1,7 @@
-<?php 
-    session_start();
-    include('server.php');
-    if (!isset($_SESSION['username'])) {
-        $_SESSION['msg'] = "You must log in first";
-        header('location: login.php');
-    }
-
-    if (isset($_GET['logout'])) {
-        session_destroy();
-        unset($_SESSION['username']);
-        header('location: login.php');
-    }
+<?php
+   
+   session_start();
+   require_once 'config/db.php';
 
 ?>
 
@@ -18,35 +9,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-
-    <link rel="stylesheet" href="style.css">
+    <title>Registeration Ssstem PDO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-
-    <div class="header">
-        <h2>Home Page</h2>
+  
+  <div class="container">
+    <h3 class="mt-5">สมัครสมาชิกค้าบบบ </h3>
+    <hr>
+    <form action="signup_db.php" method="post">
+        <?php if(isset($_SESSION['error'])) { ?>
+            <div class="alert alert-danger" role="alert">
+                 <?php
+                     echo $_SESSION['error'];
+                     unset($_SESSION['error']);
+                 ?>
+            </div>
+         <?php } ?>    
+        <?php if(isset($_SESSION['success'])) { ?>
+            <div class="alert alert-success" role="alert">
+                 <?php
+                     echo $_SESSION['success'];
+                     unset($_SESSION['success']);
+                 ?>
+            </div>
+         <?php } ?>   
+        <?php if(isset($_SESSION['warning'])) { ?>
+            <div class="alert alert-warning" role="alert">
+                 <?php
+                     echo $_SESSION['warning'];
+                     unset($_SESSION['warning']);
+                 ?>
+            </div>
+         <?php } ?>
+    
+         <div class="mb-3">
+        <label for="firstname" class="form-label">First name</label>
+        <input type="text" class="form-control" name="firstname" aria-describedby="firstname">
+  </div>
+    <div class="mb-3">
+          <label for="lastname" class="form-label">Last name</label>
+          <input type="text" class="form-control" name="lastname" aria-describedby="lastname">
+  </div>
+    <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" name="email" aria-describedby="email">
+  </div>
+  <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" name="password">
     </div>
-
-    <div class="content">
-        <!-- notification message-->
-        <?php if (isset($_SESSION['success'])) : ?>
-             <div class="success">
-                 <h3>
-                    <?php 
-                        echo $_SESSION['succes'];
-                        unset($_SESSION['success']);
-                    ?>
-                 </h3>
-             </div>   
-        <?php endif ?>
-
-        <!-- logged in user information -->
-        <?php if (isset($_SESSION['username'])) : ?>
-            <p>Welcome <strong><?php echo $_SESSION['username']; ?></strong></p>
-            <p><a href="index.php?logout='1'" style="color: purple;">Logout</a></p>
-        <?php endif ?>
+  <div class="mb-3">
+          <label for="confirm password" class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" name="c_password">
+  </div>
+          <button type="submit" name="signup" class="btn btn-primary">Sign Up</button>
+       </form>
+       <hr>
+       <p>เป็นสมาชิกแล้วหรอค้าบ คลิ๊กที่นี่เพื่อ<a href="signin.php">เข้าสู้ระบบค้าบบ</a></p>
     </div>
 
 </body>
