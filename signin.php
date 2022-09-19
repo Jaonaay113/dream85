@@ -16,7 +16,7 @@
 <body>
   
   <div class="container">
-    <h3 class="mt-5">เข้สู่ระบบ </h3>
+    <h3 class="mt-5">เข้าสู่ระบบ </h3>
     <hr>
     <form action="signin_db.php" method="post">             
     <div class="mb-3">
